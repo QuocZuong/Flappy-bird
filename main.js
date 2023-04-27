@@ -31,7 +31,7 @@ let bottomPipeImg;
 // physics
 let velocityX = -2; // for pipe
 let velocityY = 0; // for bird jump speed
-let gravity = 0.4;
+let gravity = 0.3;
 
 let gameOver = false;
 let intervalId = null;
