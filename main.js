@@ -215,7 +215,7 @@ function placePipes() {
 
 function moveBird(e) {
     if (e.code == 'Space' || e.code == "ArrowUp" || e.type == "mousedown") { // jump function
-        velocityY = -6;
+        velocityY = -5;
     }
 }
 
