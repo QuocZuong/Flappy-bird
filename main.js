@@ -233,7 +233,7 @@ function checkWin(bird, pipe) {
         birdBottom > pipeTop; // check bottom of bird is is below the top of pipe
 }
 
-Disable right-click
+// Disable right-click
 document.addEventListener('contextmenu', (e) => e.preventDefault());
 
 function ctrlShiftKey(e, keyCode) {
