@@ -34,7 +34,7 @@ let velocityX = -2; // for pipe
 let velocityY = 0; // for bird jump speed
 let gravity = 0.2;
 if (window.innerWidth < 768) {
-    gravity = 0.15;
+    gravity = 0.18;
 }
 
 let gameOver = false;
