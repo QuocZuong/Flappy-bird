@@ -2,9 +2,35 @@ body {
     margin: 0;
     font-family: 'Press Start 2P', cursive;
     text-align: center;
+    user-select: none;
 }
 
 #board {
-    margin-top: 7rem;
     background-image: url("./images/flappybirdbg.png");
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+}
+
+.change-character {
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 10px;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
+}
+
+.change-character:hover {
+    color: white;
+    background-color: black;
+}
+
+.change-character:active {
+    transform: translateY(5px);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
 }
