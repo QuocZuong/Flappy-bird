@@ -12,6 +12,7 @@ let birdImg;
 
 // bird
 let bird = {
+    img: birdImg,
     x: birdX,
     y: birdY,
     width: birdWidth,
@@ -42,8 +43,10 @@ let score = 0;
 board = document.getElementById("board");
 board.height = boardHeight;
 board.width = boardWidth;
-context = board.getContext("2d");
+
+context = board.getContext("2d"); // this context use for drawing
 context.fillStyle = "white";
+
 context.font = "12px 'Press Start 2P', cursive"
 context.fillText("Press any key to start", 50, 320)
 
@@ -51,6 +54,44 @@ context.fillText("Press any key to start", 50, 320)
 document.addEventListener("keydown", startGame);
 board.addEventListener("mousedown", startGame);
 board.addEventListener("touchstart", startGame);
+
+// set up function change character
+const characterStorage = [
+    "./images/flappybird.png",
+    "./images/baroibeo.png",
+    "./images/1.png",
+    "./images/2.png",
+    "./images/mario.png",
+    "./images/3.png",
+    "./images/4.png",
+    "./images/luffy.png"
+];
+
+let characterButton = document.querySelector(".change-character");
+let imgSrc = characterStorage[0];
+
+characterButton.addEventListener("click", function() {
+    currentCharacterIndex = (currentCharacterIndex + 1) % characterStorage.length;
+});
+
+let currentCharacterIndex = 0;
+
+function changeCharacter() {
+
+    imgSrc = characterStorage[currentCharacterIndex];
+
+    if (imgSrc !== "./images/flappybird.png") {
+        bird.height = 34;
+    } else {
+        bird.height = 24;
+    }
+    birdImg = new Image();
+    birdImg.src = imgSrc
+    birdImg.onload = function() {
+        context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height)
+    }
+}
+
 
 function startGame() {
     pipeArray = [];
@@ -63,11 +104,7 @@ function startGame() {
     context.clearRect(0, 0, board.width, board.height);
 
     // set img for bird
-    birdImg = new Image();
-    birdImg.src = "./images/flappybird.png"
-    birdImg.onload = function() {
-        context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height)
-    }
+    changeCharacter();
 
     // set img for pipe
     topPipeImg = new Image();
@@ -180,10 +217,27 @@ function moveBird(e) {
 }
 
 function checkWin(bird, pipe) {
-    return bird.x < pipe.x + pipe.width &&
-        bird.x + bird.width > pipe.x &&
-        bird.y < pipe.y + pipe.height &&
-        bird.y + bird.height > pipe.y;
+    const birdLeft = bird.x;
+    const birdRight = bird.x + bird.width;
+    const birdTop = bird.y;
+    const birdBottom = bird.y + bird.height;
+
+    const pipeLeft = pipe.x;
+    const pipeRight = pipe.x + pipe.width;
+    const pipeTop = pipe.y;
+    const pipeBottom = pipe.y + pipe.height;
+
+    return birdLeft < pipeRight && // check left side of bird is to the left of right side of pipe
+        birdRight > pipeLeft && // check right side of bird is to the right left side of pipe
+        birdTop < pipeBottom && // check top of bird is above the bottom of pipe
+        birdBottom > pipeTop; // check bottom of bird is is below the top of pipe
+}
+
+Disable right-click
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+function ctrlShiftKey(e, keyCode) {
+    return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
 }
 
 document.onkeydown = (e) => {
