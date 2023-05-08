@@ -2,6 +2,7 @@ let board;
 let boardWidth = 360;
 let boardHeight = 640;
 let context;
+let fps = 60;
 
 let birdWidth = 34;
 let birdHeight = 24;
@@ -124,7 +125,7 @@ function startGame() {
     board.addEventListener("mousedown", moveBird);
     board.addEventListener("touchstart", moveBird);
     gameOver = false;
-    requestAnimationFrame(update);
+    requestAnimationFrame(update,16.67);
     clearInterval(intervalId);
     intervalId = setInterval(placePipes, 1800);
 }
@@ -145,7 +146,7 @@ function update() {
         board.removeEventListener("touchstart", moveBird);
         return;
     }
-    requestAnimationFrame(update);
+    requestAnimationFrame(update,16.67);
     context.clearRect(0, 0, board.width, board.height); // clear old frame to update another frame
 
     //draw bird again
